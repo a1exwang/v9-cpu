@@ -43,7 +43,7 @@ Notice that floating-point registers have 64 bits, i.e, they are represented in 
 | :----- | :----------- | :-------- |
 | NOP | 0000000 000 000 000 000000000000000 | do nothing |
 
-### Arithmetic
+### Arithmetic/Logic
 
 | Name | Machine Code | Meaning |
 | :----- | :----------- | :-------- |
@@ -57,9 +57,7 @@ Notice that floating-point registers have 64 bits, i.e, they are represented in 
 | DIVI | 0001100 ra rb ... imm | ra := rb / imm |
 | MOD  | 0001111 ra rb rc ... | ra := rb % rc |
 | MODI | 0010000 ra rb ... imm | ra := rb % imm |
-
-### Logic
-
+| | | |
 | Name | Machine Code | Meaning |
 | :----- | :----------- | :-------- |
 | AND  | 0010011 ra rb rc ... | ra := rb and rc |
@@ -76,7 +74,7 @@ Notice that floating-point registers have 64 bits, i.e, they are represented in 
 | LE   | 0101011 ra rb rc ... | ra := if rb <= rb then 1 else 0 |
 | GE   | 0101111 ra rb rc ... | ra := if rb >= rb then 1 else 0 |
 
-### Branch
+### Branch/Jump
 
 | Name | Machine Code | Meaning |
 | :----- | :----------- | :-------- |
@@ -85,22 +83,15 @@ Notice that floating-point registers have 64 bits, i.e, they are represented in 
 | BNE  | 1010110 ra rb ... imm | if ra != rb then PC := PC + offset(imm) |
 | BLT  | 1011000 ra rb ... imm | if ra .< rb then PC := PC + offset(imm) |
 | BGT  | 1011011 ra rb ... imm | if ra > rb then PC := PC + offset(imm) |
-
-### Jump
-
+| | | |
 | Name | Machine Code | Meaning |
 | :----- | :----------- | :-------- |
 | J    | 1011110 ... ... ... imm | PC := PC + offset(imm) |
 | JR   | 1011111 ra ... ... ... | PC := PC + ra |
-
-### Stack
-
-| Name | Machine Code | Meaning |
-| :----- | :----------- | :-------- |
 | CALL | 1100010 000 ... ... imm | ? PC := PC + offset(imm) |
 | RET  | 1100010 001 ... ... ... | ? |
 
-### Load
+### Load/Store
 
 | Name | Machine Code | Meaning |
 | :----- | :----------- | :-------- |
@@ -108,11 +99,6 @@ Notice that floating-point registers have 64 bits, i.e, they are represented in 
 | LI  | 1101011 ra ... ... imm | ra := imm |
 | LIU | 1101100 ra ... ... imm | ra := unsigned(imm) |
 | LIH | 1101101 ra ... ... imm | ra := imm << 16 |
-
-### Store
-
-| Name | Machine Code | Meaning |
-| :----- | :----------- | :-------- |
 | SW  | 1110000 ra rb ... imm | word(rb + imm) := ra |
 
 ### Notations
