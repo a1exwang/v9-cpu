@@ -50,6 +50,7 @@ v9-cpu的指令集如下：
 
 
 ### 显示格式
+
 ```
 指令名字　指令值　　指令含义
 ```
@@ -65,6 +66,7 @@ c --> 指令编码
 ```
 
 #### system
+
 ```
 HALT	0xiiiiii00	halt system
 
@@ -81,8 +83,10 @@ JMPI	0xiiiiii04	pc += imme+ra>>2
 //用于函数调用
 JSR		0xiiiiii05	*sp = pc,	sp -= 8,	pc += imme
 JSRA	0x......06	*sp = pc,	sp -= 8,	pc += ra
+```
 
 #### load to register a
+
 ```
 LL		0xiiiiii0e	ra = *(*unit)  (sp+imme)
 LLS		0xiiiiii0f	ra = *(*short) (sp+imme)
@@ -99,6 +103,7 @@ LHI		0xiiiiii24	ra = (ra<<24)|(imme>>8)
 ```
 
 #### load to register b
+
 ```
 LBL		0xiiiiii26	rb = *(*uint)  (sp+imme)
 LBLS	0xiiiiii27	rb = *(*short) (sp+imme)
@@ -115,6 +120,7 @@ LBHI	0xiiiiii3c  rb = (rb<<24)|(imme>>8)
 ```
 
 #### store register a to memory 
+
 ```
 SL		0xiiiiii40	*(*uint)  (sp+imme) = (uint)  (ra)
 SLH		0xiiiiii41	*(*ushort)(sp+imme) = (ushort)(ra)
@@ -123,7 +129,9 @@ SX		0xiiiiii4a  *(*uint)  global_addr(rb+imme) = (uint)  (ra)
 SXH		0xiiiiii4b	*(*ushort)global_addr(rb+imme) = (ushort)(ra)
 SXB		0xiiiiii4c	*(*uchar) global_addr(rb+imme) = (ushort)(ra)
 ```
+
 #### arithmetic
+
 ```
 ADD		0x......53  ra = ra+rb
 ADDI	0xiiiiii54	ra = ra+imme
