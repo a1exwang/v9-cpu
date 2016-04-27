@@ -82,18 +82,6 @@ JMPI	0xiiiiii04	pc += imme+ra>>2
 JSR		0xiiiiii05	*sp = pc,	sp -= 8,	pc += imme
 JSRA	0x......06	*sp = pc,	sp -= 8,	pc += ra
 
-LEA		0xiiiiii07	ra = sp+imme
-LEAG	0xiiiiii08	ra = pc+imme
-CYC		0x......09	ra = current cycle related with pc
-
-
-//内存块操作
-MCPY	0x......0a	memcpy(ra, rb, rc)
-MCMP	0x......0b	memcmp(ra, rb, rc)
-MCHR	0x......0c  memchr(ra, rb, rc)
-MSET	0x......0d	memset(ra, rb, rc)
-```
-
 #### load to register a
 ```
 LL		0xiiiiii0e	ra = *(*unit)  (sp+imme)
@@ -101,25 +89,13 @@ LLS		0xiiiiii0f	ra = *(*short) (sp+imme)
 LLH		0xiiiiii10	ra = *(*ushort)(sp+imme)
 LLC		0xiiiiii11	ra = *(*char)  (sp+imme)
 LLB		0xiiiiii12	ra = *(*uchar) (sp+imme)
-LLD		0xiiiiii13	ra = *(*double)(sp+imme)
-LLF		0xiiiiii14	ra = *(*float) (sp+imme)
-LG		0xiiiiii15	ra = *(*unit)  (pc+imme)
-LGS		0xiiiiii16	ra = *(*short) (pc+imme)
-LGH		0xiiiiii17	ra = *(*ushort)(pc+imme)
-LGC		0xiiiiii18	ra = *(*char)  (pc+imme)
-LGB		0xiiiiii19	ra = *(*uchar) (pc+imme)
-LGD		0xiiiiii1a	ra = *(*double)(pc+imme)
-LGF		0xiiiiii1b	ra = *(*float) (pc+imme)
 LX		0xiiiiii1c	ra = *(*unit)  global_addr(ra+imme)
 LXS		0xiiiiii1d	ra = *(*short) global_addr(ra+imme)
 LXH		0xiiiiii1e	ra = *(*ushort)global_addr(ra+imme)
 LXC		0xiiiiii1f	ra = *(*char)  global_addr(ra+imme)
 LXB		0xiiiiii20	ra = *(*uchar) global_addr(ra+imme)
-LXD		0xiiiiii21	ra = *(*double)global_addr(ra+imme)
-LXF		0xiiiiii22	ra = *(*float) global_addr(ra+imme)
 LI		0xiiiiii23	ra = imme
 LHI		0xiiiiii24	ra = (ra<<24)|(imme>>8)
-LIF		0xiiiiii25	rf = double(imme)
 ```
 
 #### load to register b
@@ -129,27 +105,13 @@ LBLS	0xiiiiii27	rb = *(*short) (sp+imme)
 LBLH	0xiiiiii28	rb = *(*ushort)(sp+imme)
 LBLC	0xiiiiii29	rb = *(*char)  (sp+imme)
 LBLB	0xiiiiii2a	rb = *(*uchar) (sp+imme)
-LBLD	0xiiiiii2b	rb = *(*double)(sp+imme)
-LBLF	0xiiiiii2c	rb = *(*float) (sp+imme)
-LBG		0xiiiiii2d	rb = *(*uint)  (pc+imme)
-LBGS	0xiiiiii2e	rb = *(*short) (pc+imme)
-LBGH	0xiiiiii2f	rb = *(*ushort)(pc+imme)
-LBGC	0xiiiiii30	rb = *(*char)  (pc+imme)
-LBGB	0xiiiiii31	rb = *(*uchar) (pc+imme)
-LBGD	0xiiiiii32	rb = *(*double)(pc+imme)
-LBGF	0xiiiiii33	rb = *(*float) (pc+imme)
 LBX		0xiiiiii34	rb = *(*uint)  global_addr(rb+imme)
 LBXS	0xiiiiii35	rb = *(*short) global_addr(rb+imme)
 LBXH	0xiiiiii36	rb = *(*ushort)global_addr(rb+imme)
 LBXC	0xiiiiii37	rb = *(*char)  global_addr(rb+imme)
 LBXB	0xiiiiii38	rb = *(*uchar) global_addr(rb+imme)
-LBXD	0xiiiiii39	rb = *(*double)global_addr(rb+imme)
-LBXF	0xiiiiii3a	rb = *(*float) global_addr(rb+imme)
 LBI		0xiiiiii3b  rb = imme
 LBHI	0xiiiiii3c  rb = (rb<<24)|(imme>>8)
-LBIF	0xiiiiii3d  rb = double(imme)
-LBA		0x......3e  rb = ra
-LBAD    0x......3f  rg = rf
 ```
 
 #### store register a to memory 
@@ -157,184 +119,60 @@ LBAD    0x......3f  rg = rf
 SL		0xiiiiii40	*(*uint)  (sp+imme) = (uint)  (ra)
 SLH		0xiiiiii41	*(*ushort)(sp+imme) = (ushort)(ra)
 SLB		0xiiiiii42	*(*uchar) (sp+imme) = (ushort)(ra)
-SLD		0xiiiiii43	*(*double)(sp+imme) = (double)(ra)
-SLF		0xiiiiii44	*(*float) (sp+imme) = (float) (ra)
-SG		0xiiiiii45	*(*uint)  (pc+imme) = (uint)  (ra)
-SGH		0xiiiiii46	*(*ushort)(pc+imme) = (ushort)(ra)
-SGB		0xiiiiii47	*(*uchar) (pc+imme) = (ushort)(ra)
-SGD		0xiiiiii48	*(*double)(pc+imme) = (double)(ra)
-SGF		0xiiiiii49	*(*float) (pc+imme) = (float) (ra)
 SX		0xiiiiii4a  *(*uint)  global_addr(rb+imme) = (uint)  (ra)
 SXH		0xiiiiii4b	*(*ushort)global_addr(rb+imme) = (ushort)(ra)
 SXB		0xiiiiii4c	*(*uchar) global_addr(rb+imme) = (ushort)(ra)
-SXD		0xiiiiii4d	*(*double)global_addr(rb+imme) = (double)(ra)
-SXF		0xiiiiii4e	*(*float) global_addr(rb+imme) = (float) (ra)
 ```
-
 #### arithmetic
 ```
-ADDF	0x......4f	rf = rf+rg
-SUBF	0x......50	rf = rf-rg
-MULF	0x......51	rf = rf*rg
-DIVF	0x......52	rf = rf/rg
 ADD		0x......53  ra = ra+rb
 ADDI	0xiiiiii54	ra = ra+imme
-ADDL	0xiiiiii55	ra = ra+(*(int*)(sp+imme))
-SUB		0x......56  ra = ra-rb
-SUBI	0xiiiiii57	ra = ra-imme
-SUBL	0xiiiiii58	ra = ra-(sp+imme)
 MUL		0x......59	ra = (int)(ra)*(int)(rb)
 MULI	0xiiiiii5a	ra = (int)(ra)*(int)(imme)
-MULL	0xiiiiii5b	ra = (int)(ra)*(*(int*)(sp+imme))
 DIV		0x......5c	ra = (int)(ra)/(int)(rb)
 DIVI	0xiiiiii5d	ra = (int)(ra)/(int)(imme)
-DIVL	0xiiiiii5e	ra = (int)(ra)/(*(int*)(sp+imme))
 DVU		0x......5f	ra = (uint)(ra)/(uint)(rb)
 DVUI	0xiiiiii60	ra = (uint)(ra)/(uint)(imme)
-DVUL	0xiiiiii61	ra = (uint)(ra)/(*(uint*)(sp+imme))
 MOD		0x......62	ra = (int)(ra)%(int)(rb)
 MODI	0xiiiiii63	ra = (int)(ra)%(int)(imme)
-MODL	0xiiiiii64	ra = (int)(ra)%(*(int*)(sp+imme))
 MDU		0x......65	ra = (uint)(ra)%(uint)(rb)
 MDUI	0xiiiiii66	ra = (uint)(ra)%(uint)(imme)
-MDUL	0xiiiiii67	ra = (uint)(ra)%(*(uint*)(sp+imme))
 AND		0x......68	ra = ra&rb
 ANDI	0xiiiiii69	ra = ra&imme
-ANDL	0xiiiiii6a	ra = ra&(*(int*)(sp+imme))
 OR		0x......6b	ra = ra|rb
 ORI		0xiiiiii6c	ra = ra|imme
-ORL		0xiiiiii6d	ra = ra|(*(int*)(sp+imme))
 XOR		0x......6e	ra = ra^rb
 XORI	0xiiiiii6f	ra = ra^imme
-XORL	0xiiiiii70	ra = ra^(*(int*)(sp+imme))
 SHL		0x......71	ra = ra<<(uint)(rb)
 SHLI	0xiiiiii72	ra = ra<<(uint)(imme)
-SHLL	0xiiiiii73	ra = ra<<(*(uint*)(sp+imme))
 SHR		0x......74	ra = (int)(ra)>>(uint)(rb)
 SHRI	0xiiiiii75	ra = (int)(ra)>>(uint)(imme)
-SHRL	0xiiiiii76	ra = (int)(ra)>>(*(uint*)(sp+imme))
 SRU		0x......77	ra = (uint)(ra)>>(uint)(rb)
 SRUI	0xiiiiii78	ra = (uint)(ra)>>(uint)(imme)
-SRUL	0xiiiiii79	ra = (uint)(ra)>>(*(uint*)(sp+imme))
 EQ		0x......7a  ra = (ra == rb)
-EQF		0x......7b	ra = (rf == rg)
 NE		0x......7c	ra = (ra != rb)
-NEF		0x......7d	ra = (rf != rg)
 LT		0x......7e	ra = ((int)a < (int)b)
 LTU		0x......7f	ra = ((uint)a < (uint)b)
-LTF		0x......80	ra = (f < g)
 GE		0x......81	ra = ((int)a > (int)b)
 GEU		0x......82	ra = ((uint)a > (uint)b)
-GEF		0x......83	ra = (f > g)
 ```
 #### conditional branch
 ```
 BZ		0xiiiiii84	if (ra == 0)  pc = pc+imme
-BZF		0xiiiiii85	if (rf == 0)  pc = pc+imme
 BNZ		0xiiiiii86  if (ra != 0)  pc = pc+imme
-BNZF	0xiiiiii87	if (rf != 0)  pc = pc+imme
-BE		0xiiiiii88	if (ra == rb) pc = pc+imme
-BEF		0xiiiiii89	if (rf == rg) pc = pc+imme
-BNE		0xiiiiii8a  if (ra != rb) pc = pc+imme
-BNEF	0xiiiiii8b	if (rf != rg) pc = pc+imme
-BLT		0xiiiiii8c	if ((int)a < (int)b) pc = pc+imme
-BLTU	0xiiiiii8d	if ((uint)a < (uint)b) pc = pc+imme
-BLTF	0xiiiiii8e	if (f < g) pc = pc+imme
-BGE		0xiiiiii8f	if ((int)a < (int)b) pc = pc+imme
-BGEU	0xiiiiii90	if ((uint)a < (uint)b) pc = pc+imme
-BGEF	0xiiiiii91	if (f < g) pc = pc+imme
-```
-
-#### conversion
-```
-CID		0x......92  f = (double)((int)a)
-CUD		0x......93	f = (double)((uint)a)
-CDI		0x......94	a = (int)(f)
-CDU		0x......95	a = (uint)(f)
 ```
 
 #### misc
 ```
-//屏蔽中断
-CLI		0x......96	a = iena,	iena = 0
-//使能中断
-STI		0x......97	if generated by hardware: set trap, and process the interrupt; else: iena = 1
-//中断返回
-RTI		0x......98	return from interrupt, POP fault code, pc, sp,  if fault code== USER, then switch to user mode; if has pending interrupt, process the interrupt
-//IO读写
-BIN		0x......99	a = kbchar,	kbchar is the value from outside io
-BOUT	0x......9a	a = write(a, &b, 1);
-
 NOP		0x......9b	no operation.
 
-SSP		0x......9c	ksp = a -- ksp is kernel sp
 PSHA	0x......9d	sp -= 8, *sp = a
 PSHI	0x......9e	sp -= 8, *sp = imme
-PSHF	0x......9f	sp -= 8, *(double *)sp = f
 PSHB	0x......a0	sp -= 8, *sp = b
 POPB	0x......a1	b = *sp, sp += 8
-POPF	0x......a2	f = *(double *)sp, sp += 8
 POPA	0x......a3	a = *sp, sp += 8
-
-//设置中断向量起始地址
-IVEC	0x......a4	ivec = a -- set interrupt vector by a
-//设置页目录表起始地址
-PDIR	0x......a5	pdir = a -- set page directory physical memory by a
-//设置页机制使能/屏蔽
-SPAG	0x......a6	paging = a -- enable/disable virtual memory feature by a
-//设置时钟到时值
-TIME	0xiiiiiia7	if operand0 is 0: timeout = a -- set current timeout from a; else: printk("timer%d=%u timeout=%u", operand0, timer, timeout)
-//获取访问异常的地址
-LVAD	0x......a8	a = vadr -- vadr is bad virtual address
-//陷入指令，常用于系统调用
-TRAP	0x......a9	trap = FSYS
-//获取用户态的sp值
-LUSP	0x......aa	a = usp	
-//设置用户态的sp值
-SUSP	0x......ab	usp = a -- usp is user stack pointer
-LCL		0xiiiiiiac	c = *(uint *)(sp + imme)
-LCA		0x......ad	c = a
 PSHC	0x......ae	sp -= 8, *sp = c
 POPC	0x......af	c = *sp, sp += 8
-//获取内存大小
-MSIZ 	0x......b0	a = memsz -- move physical memory to a.
-
-PSHG	0x......b1	sp -= 8, *sp = g
-POPG	0x......b2	g = *sp, sp += 8
-
-NET1	0xiiiiiib3	No use
-NET2	0xiiiiiib4	No use
-NET3	0xiiiiiib5	No use
-NET4	0xiiiiiib6	No use
-NET5	0xiiiiiib7	No use
-NET6	0xiiiiiib8	No use
-NET7	0xiiiiiib9	No use
-NET8	0xiiiiiiba	No use
-NET9	0xiiiiiibb	No use
-```
-
-#### math 
-```
-POW		0x......bc	rf = power(rf, rg)
-ATN2	0x......bd	rf = atan2(rf, rg)
-FABS	0x......be	rf = fabs(rf, rg)
-ATAN	0x......c0	rf = atan(rf)
-LOG 	0x......c1	rf = log(rf)
-LOGT	0x......c2	rf = log10(rf)
-EXP 	0x......c3	rf = exp(rf)
-FLOR	0x......c4	rf = floor(rf)
-CEIL	0x......c5	rf = ceil(rf)
-HYPO	0x......c6	rf = hypo(rf, rg)
-SIN 	0x......c7	rf = sin(rf)
-COS 	0x......c8	rf = cos(rf)
-TAN 	0x......c9	rf = tan(rf)
-ASIN	0x......ca	rf = asin(rf)
-ACOS	0x......cb	rf = acos(rf)
-SINH	0x......cc	rf = sinh(rf)
-COSH	0x......cd	rf = cosh(rf)
-TANH	0x......ce	rf = tanh(rf)
-SQRT	0x......cf	rf = sqrt(rf)
-FMOD	0x......d0	rf = fmod(rf, rg)
 ```
 
 #### cpu idle
